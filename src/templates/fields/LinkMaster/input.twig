@@ -1,0 +1,149 @@
+{% import "_includes/forms" as forms %}
+
+<div id="link-master-tabs" class="pane-tabs">
+    <div role="tablist" aria-label="Link Master fields">
+        <a id="lm-tab-tab-content" class="sel" href="#lm-tab-content" tabindex="0" role="tab" data-id="lm-tab-content" aria-controls="lm-tab-content" aria-selected="true">Content</a>
+        <a id="lm-tab-tab-attributes" href="#lm-tab-attributes" tabindex="0" role="tab" data-id="lm-tab-attributes" aria-controls="lm-tab-attributes" aria-selected="false">Attributes</a>
+        <a id="lm-tab-tab-template" href="#lm-tab-template" tabindex="0" role="tab" data-id="lm-tab-template" aria-controls="lm-tab-template" aria-selected="false">Template</a>
+    </div>
+</div>
+
+<div id="link-master-fields-content">
+    <div id="lm-tab-content" data-id="fields-lm-tab-content" role="tabpanel" tabindex="0" aria-labelledby="fields-lm-tab-tab-content">
+
+        <div class="link-field-wrapper">
+            {% set typeOptions = [
+                {label: 'Custom'|t('link-master'), value: 'custom'},
+                {label: 'Entry'|t('link-master'), value: 'entry'},
+                {label: 'Asset'|t('link-master'), value: 'asset'},
+                {label: 'Category'|t('link-master'), value: 'category'},
+            ] %}
+            <div class="col">
+                <div class="link-field__parts">
+                    {{ forms.text({
+                        id: id ~ '-url',
+                        type: "text",
+                        name: name ~ '[url]',
+                        value: '',
+                        class: 'link-field-input'
+                    }) }}
+
+                    <div class="link-field-type">
+                        <div class="current-type link-field-type__current">Custom</div>
+                        <ul class="link-field-type__menu" style="display: none;">
+                            {% for option in typeOptions %}
+                                <li class="link-field-type__link {{ option.value == 'custom' ? 'selected' : '' }}"
+                                    data-value="{{ option.value }}"
+                                    data-label="{{ option.label }}">{{ option.label }}</li>
+                            {% endfor %}
+                        </ul>
+                        {{ hiddenInput(name ~ '[linkType]', 'custom', {id: 'website-link-type'}) }}
+                    </div>
+                </div>
+
+                <div class="link-attribute-parts">
+                    <div class="custom-title">
+                        <span>{{ 'Link text'|t('link-master') }}</span>
+
+                        <input type="text"
+                            class="inline-input"
+                            name="{{ name ~ '[title]' }}"
+                            placeholder="{{ 'Custom link text'|t('link-master') }}">
+                    </div>
+
+                    <div class="custom-target">
+                        {{ 'Open link in'|t('link-master') }}
+                        <div
+                            class="inline-selector"
+                            id="attr-target"
+                            data-selected-label="{{ 'current tab'|t('link-master') }}"
+                            data-selected-value="_self">
+
+                            {{ hiddenInput(name ~ '[attributes][target]', '_self') }}
+
+                            <span class="selected-value"
+                                data-label="{{ 'current tab'|t('link-master') }}"
+                                data-value="_self">{{ 'current tab'|t('link-master') }}</span>
+                            <div class="drop-items">
+                                <span></span>
+                                <div data-label="{{ 'current tab'|t('link-master') }}" data-value="_self">current tab</div>
+                                <div data-label="{{ 'new tab'|t('link-master') }}" data-value="_blank">new tab</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="lm-tab-attributes" class="hidden" data-id="fields-lm-tab-attributes" role="tabpanel" tabindex="0" aria-labelledby="fields-lm-tab-tab-attributes">
+
+        <div class="matrix matrix-field">
+            <div class="blocks">
+                <div class="matrixblock">
+
+                </div>
+            </div>
+
+            <div class="buttons last">
+                <div class="btngroup">
+                    <button type="button" class="btn dashed">Classes</button>
+                    <button type="button" class="btn dashed">ID</button>
+                    <button type="button" class="btn dashed">Data</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="field">
+            {{ forms.text({
+                id: id ~ '-class',
+                type: "text",
+                name: name ~ '[attributes][class]',
+                value: '',
+                class: 'link-field-input link-field-input__class small'
+            }) }}
+
+            <div class="link-field-input__label">
+                {{ 'Classes'|t('link-master') }}
+            </div>
+        </div>
+
+        <div class="field">
+            {{ forms.text({
+                id: id ~ '-id',
+                type: "text",
+                name: name ~ '[attributes][id]',
+                value: '',
+                class: 'link-field-input link-field-input__id small'
+            }) }}
+
+            <div class="link-field-input__label">
+                {{ 'ID'|t('link-master') }}
+            </div>
+        </div>
+    </div>
+
+    <div id="lm-tab-template" class="hidden" data-id="fields-lm-tab-template" role="tabpanel" tabindex="0" aria-labelledby="fields-lm-tab-tab-template">
+        {{ forms.lightswitchField({
+            label: 'Enable template override'|t('link-master'),
+            id: id ~ '-enable-template',
+            name: name ~ '[template][enabled]',
+            small: true,
+        }) }}
+
+        <div class="template-field-wrapper">
+            {{ forms.textareaField({
+                label: 'Template' |t('link-master'),
+                id: id ~ '-template',
+                name: name ~ '[template][html]',
+                value: '<a href="{{ url }}">{{ title }}</a>',
+                rows: 6,
+                class: 'link-field-input link-field-input__html small'
+            }) }}
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,41 @@
+{
+    "name": "zhukapp/link-master",
+    "description": "Simplify linking in Craft",
+    "type": "craft-plugin",
+    "version": "0.0.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "link master"
+    ],
+    "support": {
+        "docs": "https://github.com/zhukapp/link-master/blob/master/README.md",
+        "issues": "https://github.com/zhukapp/link-master/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zhuk",
+            "homepage": "https://zhuk.app"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0 | ^4.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "zhukapp\\linkmaster\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Link Master",
+        "handle": "link-master",
+        "developer": "Zhuk",
+        "developerUrl": "https://zhuk.app",
+        "documentationUrl": "https://github.com/zhukapp/link-master/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/zhukapp/link-master/master/CHANGELOG.md",
+        "class": "zhukapp\\linkmaster\\LinkMaster"
+    }
+}
